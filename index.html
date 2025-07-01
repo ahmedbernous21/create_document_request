@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document Request</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>Create a Document Request</h1>
+  <p>Click the button below to send a document request:</p>
+  <button id="submitWebhook">Submit Document Request</button>
+
+  <script>
+    document.getElementById("submitWebhook").addEventListener("click", function () {
+      const webhookUrl = "https://tangleapps.com/webhook?workflow=-OU4irJpO6-FFX0dWcFf&dashboard=-OT6tTeteu4Pm876b9Cc";
+
+      const postData = {
+        name: "ahmed",
+        email: "ahmed@mylanguageconnection.com",
+        message: "Document request triggered from a custom website.",
+      };
+
+      fetch(webhookUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(postData),
+      })
+        .then((response) => {
+          if (response.ok) {
+            alert("Document request submitted successfully!");
+          } else {
+            alert("Failed to submit the document request.");
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("An error occurred while submitting the document request.");
+        });
+    });
+  </script>
+</body>
+</html>
