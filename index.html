@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Document Request</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
+    }
+    label, input {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+    input {
+      padding: 8px;
+      width: 300px;
+      max-width: 100%;
     }
     button {
       background-color: #4CAF50;
@@ -25,17 +35,31 @@
 </head>
 <body>
   <h1>Create a Document Request</h1>
-  <p>Click the button below to send a document request:</p>
+  <p>Fill in the fields below and click the button to send a document request:</p>
+
+  <label for="docId">ID</label>
+  <input type="number" id="docId" placeholder="Enter document ID" />
+
+  <label for="docSubject">Subject</label>
+  <input type="text" id="docSubject" placeholder="Enter document subject" />
+
   <button id="submitWebhook">Submit Document Request</button>
 
   <script>
     document.getElementById("submitWebhook").addEventListener("click", function () {
-      const webhookUrl = "https://tangleapps.com/webhook?workflow=-OU4irJpO6-FFX0dWcFf&dashboard=-OT6tTeteu4Pm876b9Cc";
+      const webhookUrl = "https://tangleapps.com/webhook?workflow=-OU6Aohq4ACH0Ns8GOVl&dashboard=-NmBD2qWqv5Yi4kOS29g";
+
+      const id = document.getElementById("docId").value;
+      const subject = document.getElementById("docSubject").value;
+
+      if (!id || !subject) {
+        alert("Please fill in both ID and Subject.");
+        return;
+      }
 
       const postData = {
-        name: "ahmed",
-        email: "ahmed@mylanguageconnection.com",
-        message: "Document request triggered from a custom website.",
+        id: parseInt(id),
+        subject: subject.trim(),
       };
 
       fetch(webhookUrl, {
